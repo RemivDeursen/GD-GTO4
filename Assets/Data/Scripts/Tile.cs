@@ -2,15 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tile : MonoBehaviour {
+public class Tile : MonoBehaviour
+{
+    public bool occupied = false;
+    public float x, y;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public void setLocation(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    public Vector3 GetLocation()
+    {
+        return new Vector3(x, 0, y);
+    }
+
+    public void SetOccupied()
+    {
+        occupied = true;
+    }
 }
