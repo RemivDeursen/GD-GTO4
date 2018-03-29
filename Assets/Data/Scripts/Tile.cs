@@ -5,21 +5,22 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public bool occupied = false;
-    public float x, y;
+    public Vector2 position {get; private set;}
+    public Unit unit {get; private set;}
 
-    public void setLocation(int x, int y)
+    public void SetPosition(int x, int y)
     {
-        this.x = x;
-        this.y = y;
+        this.position = new Vector2(x,y);
     }
 
-    public Vector3 GetLocation()
+    public void SetUnit(Unit unit)
     {
-        return new Vector3(x, 0, y);
-    }
-
-    public void SetOccupied()
-    {
-        occupied = true;
+        this.unit = unit;
+        if(unit == null){
+            occupied = false;
+        }
+        else{
+            occupied = true;
+        }
     }
 }

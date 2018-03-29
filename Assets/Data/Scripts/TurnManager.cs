@@ -12,6 +12,8 @@ public class TurnManager : MonoBehaviour
     public Player currentPlayer;
 	public GameObject unitFactory;
 	public Grid grid;
+    public bool hasMoved = false;
+    public bool hasSpawned = false;
     // Use this for initialization
     void Start()
     {
@@ -22,14 +24,12 @@ public class TurnManager : MonoBehaviour
             playerList.Add(player);
             player.name = "Player " + (i + 1);
 			player.playerColor.GetComponent<Image>().color = Random.ColorHSV();
+            player.GetComponentInChildren<Factory>().turnManager = this;
+            player.playerId = i;
             if (i > 0)
             {
                 player.gameObject.SetActive(false);
             }
-			/*foreach (Factory item in player.GetComponent<Player>().factoryList)
-			{
-				item.grid = grid;
-			}*/
         }
         currentPlayer = playerList[0];
     }
@@ -37,10 +37,24 @@ public class TurnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(hasMoved && hasSpawned){
+            NextTurn();
+        }
+    }
+    public void addAction(string action){
+        if (action == "spawn")
+        {
+            hasSpawned = true;
+        }
+        else if (action == "movement")
+        {
+            hasMoved = true;
+        }
     }
 
 	public void NextTurn(){
+        hasMoved = false;
+        hasSpawned = false;
 		if (currentPlayer != playerList[playerAmmount-1])
 		{
 			currentPlayerId++;;

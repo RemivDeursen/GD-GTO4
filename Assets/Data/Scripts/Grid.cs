@@ -23,7 +23,7 @@ public class Grid : MonoBehaviour {
 
                 Tile tile = (Tile)Instantiate(prefab, new Vector3(xPos, 0, zPos), Quaternion.identity);
                 tile.transform.SetParent(this.transform);
-                tile.setLocation(x,z);
+                tile.SetPosition(x,z);
                 tiles[x,z] = tile;
             }
         }
