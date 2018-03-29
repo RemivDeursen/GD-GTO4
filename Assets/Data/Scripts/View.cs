@@ -7,25 +7,19 @@ using UnityEngine.UI;
 
 public class View : MonoBehaviour
 {
-    public Model Model;
+    public ResourceController Model;
     private Text DataText;
     private UnityAction updateText;
     // Use this for initialization
-    void Start ()
+    void Awake ()
     {
         updateText += UpdateText;
         DataText = this.GetComponent<Text>();
 	    Model.changeEvent.AddListener(updateText);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     void UpdateText()
     {
-        DataText.text = Model.CurrentValue.ToString();
-        print("test");
+        DataText.text = Model.currentValue.ToString();
     }
 }

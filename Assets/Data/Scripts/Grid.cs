@@ -3,26 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Grid : MonoBehaviour {
-    public GameObject tile;
-    private int xLength = 20;
-    private int yLength = 20;
-    private int xPos = -50;
-    private int yPos = 0;
-    private GameObject[,] tiles;
+    public Tile prefab;
+    public int xLength = 20;
+    public int zLength = 20;
+    private float xPos = 0;
+    private float zPos = 0;
+    public int offSet = 2;
+    private Tile[,] tiles;
+    
 	// Use this for initialization
 	void Start () {
+        tiles = new Tile[xLength, zLength];
         for (int x = 0; x < xLength; x++)
         {
-            for (int y = 0; y < yLength; y++)
+            for (int z = 0; z < zLength; z++)
             {
-                tiles[x,y] = (GameObject)Instantiate(tile, new Vector3(xPos,0,yPos), Quaternion.identity);
-                yPos += 5;
+                xPos = x * prefab.transform.localScale.x;
+                zPos = z * prefab.transform.localScale.z;
+
+                Tile tile = (Tile)Instantiate(prefab, new Vector3(xPos, 0, zPos), Quaternion.identity);
+                tile.transform.SetParent(this.transform);
+                tile.setLocation(x,z);
+                tiles[x,z] = tile;
             }
-            xPos += 5;
-            yPos = 0;
         }
 	}
 	
+    public Tile[,] GetTiles(){
+        return tiles;
+    }
+
 	// Update is called once per frame
 	void Update () {
 		

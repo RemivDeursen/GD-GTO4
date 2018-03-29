@@ -2,41 +2,31 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Assets.Data.Scripts
+public class ResourceController : MonoBehaviour
 {
-    public class ResourceController : MonoBehaviour
+    public float startingAmmount = 20;
+    public float currentValue;
+    public UnityEvent changeEvent = new UnityEvent();
+    private UnityAction addEvent;
+    private UnityAction removeEvent;
+    void Start()
     {
+        currentValue = startingAmmount;
+        changeEvent.Invoke();
+    }
 
-        private UnityEvent addResourceEvent = new UnityEvent();
-        private UnityEvent removeResourceEvent = new UnityEvent();
+    public void AddAmmount()
+    {
+        currentValue += 10;
+        changeEvent.Invoke();
+    }
 
-        public UnityEvent AddResourceEvent
+    public void RemoveAmmount()
+    {
+        if (currentValue > 0)
         {
-            get { return addResourceEvent; }
-        }
-
-        public UnityEvent RemoveResourceEvent
-        {
-            get { return removeResourceEvent; }
-        }
-        
-        // Use this for initialization
-        void Start () {
-		
-        }
-	
-        // Update is called once per frame
-        void Update () {
-
-        }
-
-        public void AddResource()
-        {
-            addResourceEvent.Invoke();
-        }
-        public void RemoveResource()
-        {
-            removeResourceEvent.Invoke();
+            currentValue -= 10;
+            changeEvent.Invoke();
         }
     }
 }

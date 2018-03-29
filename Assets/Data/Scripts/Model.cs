@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Assets.Data.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -29,31 +28,31 @@ public class Model : MonoBehaviour
 
 
     // Use this for initialization
-    void Start ()
-	{
-	    addEvent += AddAmmount;
-	    removeEvent += RemoveAmmount;
-	    CurrentValue = startingAmmount;
-	    ResourceController.AddResourceEvent.AddListener(addEvent);
-	    ResourceController.RemoveResourceEvent.AddListener(removeEvent);
+    void Start()
+    {
+        addEvent += AddAmmount;
+        removeEvent += RemoveAmmount;
+        CurrentValue = startingAmmount;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    void AddAmmount()
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void AddAmmount()
     {
         CurrentValue += 10;
         print("Model: Add");
     }
 
-    void RemoveAmmount()
+    public void RemoveAmmount()
     {
         if (currentValue > 0)
         {
             CurrentValue -= 10;
         }
     }
+
 }
